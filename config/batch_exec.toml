@@ -1,0 +1,6 @@
+processes = [
+    "sleep 5",
+    "sleep 7",
+    "sleep 3",
+    "echo haha",
+]
