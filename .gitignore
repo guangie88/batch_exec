@@ -12,3 +12,5 @@ update-center.json
 *.txt
 *.hpi
 *.war
+
+.vscode/

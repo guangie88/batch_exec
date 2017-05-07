@@ -51,7 +51,7 @@ struct ArgConfig {
 fn run() -> Result<()> {
     let arg_config = ArgConfig::from_args();
 
-    let _ = log4rs::init_file(&arg_config.log_config_path, Default::default())
+    log4rs::init_file(&arg_config.log_config_path, Default::default())
        .chain_err(|| format!("Unable to initialize log4rs logger with the given config file at '{}'", arg_config.log_config_path))?;
 
     let config_str = {
@@ -102,7 +102,11 @@ fn run() -> Result<()> {
         .collect();
 
     for process_res_fut in process_res_futs.into_iter() {
-        let _ = process_res_fut.wait();
+        let res = process_res_fut.wait();
+
+        if let Err(e) = res {
+            println!("Error waiting for child future: {}", e);
+        }
     }
 
     Ok(())
